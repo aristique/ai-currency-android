@@ -24,9 +24,15 @@ fun fetchXml(day: LocalDate): String {
     try {
         if (connection.responseCode != 200) throw IOException("Источник временно недоступен.")
         connection.inputStream.use { stream ->
-            val bytes = stream.readNBytes(2_000_001)
-            if (bytes.size > 2_000_000) throw IOException("Слишком большой ответ источника.")
-            return bytes.toString(Charsets.UTF_8)
+            val output = java.io.ByteArrayOutputStream()
+            val buffer = ByteArray(8192)
+            while (true) {
+                val count = stream.read(buffer)
+                if (count < 0) break
+                output.write(buffer, 0, count)
+                if (output.size() > 2_000_000) throw IOException("Слишком большой ответ источника.")
+            }
+            return output.toByteArray().toString(Charsets.UTF_8)
         }
     } finally { connection.disconnect() }
 }

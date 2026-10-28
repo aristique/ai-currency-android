@@ -1,0 +1,24 @@
+services:
+  android-build:
+    image: ai-currency-android-build:local
+    build:
+      context: .
+      target: build
+    init: true
+    volumes:
+      - gradle-cache:/home/gradle/.gradle
+      - android-debug-key:/home/gradle/.android
+      - ./artifacts:/out
+  tests:
+    image: ai-currency-android-build:local
+    build:
+      context: .
+      target: build
+    init: true
+    command: ["gradle", "--no-daemon", "--console=plain", "testDebugUnitTest"]
+    volumes:
+      - gradle-cache:/home/gradle/.gradle
+    profiles: [test]
+volumes:
+  gradle-cache:
+  android-debug-key:

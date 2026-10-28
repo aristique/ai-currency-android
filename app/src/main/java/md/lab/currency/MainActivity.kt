@@ -202,7 +202,7 @@ class MainActivity : Activity() {
                 content.addView(label("Показатель — стоимость 1 $from в $to. Линия соединяет доступные наблюдения; отсутствующие дни не выдумываются.", 12))
             }
         }
-        content.addView(button("Загрузить историю заново") { histories.remove(days); requestHistory(days) })
+        content.addView(button("Загрузить недостающие дни") { histories.remove(days); requestHistory(days) })
     }
 
     private fun refresh() {

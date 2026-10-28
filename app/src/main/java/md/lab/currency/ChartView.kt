@@ -35,7 +35,7 @@ class ChartView(context: Context, private val points: List<Point>, private val d
         canvas.drawText(points.first().day.toString().substring(5), left, height-12*density, paint)
         paint.textAlign = Paint.Align.RIGHT
         canvas.drawText(points.last().day.toString().substring(5), right, height-12*density, paint)
-        canvas.drawText("1 ${points.first().value.setScale(4, java.math.RoundingMode.HALF_UP)}", right, 20*density, paint)
+        canvas.drawText(points.first().value.setScale(4, java.math.RoundingMode.HALF_UP).toPlainString(), right, 20*density, paint)
         paint.textAlign = Paint.Align.LEFT
         val path = Path()
         points.forEachIndexed { index, point ->

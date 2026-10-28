@@ -11,4 +11,4 @@ WORKDIR /project
 
 FROM sdk AS build
 COPY --chown=gradle:gradle . .
-CMD ["sh", "-c", "gradle --no-daemon --console=plain testDebugUnitTest assembleDebug && cp app/build/outputs/apk/debug/app-debug.apk /out/lab4-currency-debug.apk && if [ -d app/build/test-results/testDebugUnitTest ]; then cp -r app/build/test-results/testDebugUnitTest /out/test-results; fi"]
+CMD ["sh", "scripts/build.sh"]
